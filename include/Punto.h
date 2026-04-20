@@ -4,6 +4,7 @@
 
 #ifndef CG_PRUEBA_PUNTO_H
 #define CG_PRUEBA_PUNTO_H
+#include <iosfwd>
 
 class Punto {
     private:
@@ -14,6 +15,8 @@ class Punto {
         Punto();
         Punto(float x, float y, float z);
         ~Punto();
+        friend std::ostream& operator<<(std::ostream& os, const Punto& punto);
+        friend class Triangulo;
 };
 
 #endif //CG_PRUEBA_PUNTO_H

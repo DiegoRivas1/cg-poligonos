@@ -8,8 +8,13 @@
 
 class Triangulo:public Poligono {
     private:
-        [[nodiscard]] float distancia(const Punto& p1, const Punto& p2) const;
+        [[nodiscard]] static float distancia(const Punto& p1, const Punto& p2);
     public:
+        Triangulo(const Punto& p1, const Punto& p2, const Punto& p3);
+        [[nodiscard]] float area() const override;
+        [[nodiscard]] float perimetro() const override;
+        void dibujar() const override;
+        [[nodiscard]] unsigned int numVertices() const override;
 
 };
 

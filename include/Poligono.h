@@ -19,7 +19,7 @@ class Poligono {
         [[nodiscard]] virtual float area() const = 0;
         [[nodiscard]] virtual float perimetro() const = 0;
         virtual void dibujar() const = 0;          // cada figura decidira como se dibuja
-        [[nodiscard]] virtual int numVertices() const = 0;
+        [[nodiscard]] virtual unsigned int numVertices() const = 0;
 
         [[nodiscard]] const std::vector<Punto>& getVertices() const;
 };

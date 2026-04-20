@@ -4,9 +4,6 @@
 
 #include "Poligono.h"
 
-/*
-
 const std::vector<Punto>& Poligono::getVertices() const {
     return vertices;
 }
- */

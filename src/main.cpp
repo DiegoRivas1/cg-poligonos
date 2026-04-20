@@ -1,145 +1,69 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Triangulo.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-}
+static const int WIDTH = 800;
+static const int HEIGHT = 600;
 
-const char* vertexShaderSource = R"(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    
-    void main() {
-        gl_Position = vec4(aPos, 1.0);
-    }
-)";
-
-const char* fragmentShaderSource = R"(
-    #version 330 core
-    out vec4 FragColor;
-    
-    void main() {
-        FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-    }
-)";
+void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
 int main() {
-    // Inicializar GLFW
     if (!glfwInit()) {
-        std::cerr << "Error inicializando GLFW\n";
+        std::cerr << "No se pudo iniciar glfw"<<std::endl;
         return -1;
     }
 
-    // Configurar versión de OpenGL
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //Pedimos contexto
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-    // Crear ventana
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Test OpenGL MSYS2", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Traingulo", nullptr, nullptr);
+
     if (!window) {
-        std::cerr << "Error creando ventana\n";
+        std::cerr << "Error al crear ventana"<<std::endl;
         glfwTerminate();
         return -1;
     }
 
     glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
 
-    // Inicializar GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Error inicializando GLAD\n";
+        std::cerr << "No se pudo iniciar glad"<<std::endl;
         return -1;
     }
 
-    // Configurar viewport
-    glViewport(0, 0, 800, 600);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //Traingulo  centrado en pantalla
+    Triangulo tri(
+        Punto(0.0f, 0.5f, 0.0f), // arriba
+        Punto(-0.5f, -0.5f, 0.0f), //abajo-izqrieda
+        Punto(0.5f, -0.5f, 0.0f) //abajo-derecha
+    );
 
-    // Compilar shaders
-    int success;
-    char infoLog[512];
-
-    // Vertex shader
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-        std::cerr << "Vertex shader compilation failed: " << infoLog << "\n";
-    }
-
-    // Fragment shader
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
-        std::cerr << "Fragment shader compilation failed: " << infoLog << "\n";
-    }
-
-    // Linking program
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
-        std::cerr << "Program linking failed: " << infoLog << "\n";
-    }
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    // Vértices del triángulo rectángulo
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,  // Esquina inferior izquierda
-         0.5f, -0.5f, 0.0f,  // Esquina inferior derecha
-        -0.5f,  0.5f, 0.0f,   // Esquina superior izquierda
-    };
-
-    // Configurar VAO y VBO
-    unsigned int VAO, VBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    // Loop principal
     while (!glfwWindowShouldClose(window)) {
-        // limpiar pantalla
-        glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(window, true);
+        }
+
+        glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Usar shader program
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glColor3f(0.2f, 0.8f, 0.4f);
+        tri.dibujar();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    // Cleanup
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
-
     glfwTerminate();
     return 0;
 }
+
+void frameBufferSizeCallback(GLFWwindow *window, int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
+
+
+
