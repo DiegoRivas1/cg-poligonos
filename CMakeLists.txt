@@ -1,36 +1,80 @@
 cmake_minimum_required(VERSION 3.20)
 project(cg_prueba)
 
+#
+find_package(glm REQUIRED)
+
+target_link_libraries(cg_prueba PRIVATE
+        glfw
+        opengl32
+        gdi32
+        glm::glm
+)
+#
 set(CMAKE_CXX_STANDARD 20)
 include_directories(include)
-
-# ── Ejecutable principal ──────────────────────────────────────────────
-add_executable(cg_prueba
-        src/main.cpp
+set(APP_SOURCES
         src/Punto.cpp
         src/Poligono.cpp
         src/PoligonoIrregular.cpp
         src/PoligonoRegular.cpp
         src/PoligonoFactory.cpp
         src/Triangulo.cpp
-        external/glad/src/glad.c
-        include/Ventana.h
         src/Ventana.cpp
+        src/VentanaLegacy.cpp
+        src/VentanaCore.cpp
+        src/Shader.cpp
+        external/glad/src/glad.c
+)
+# ── Ejecutable principal ──────────────────────────────────────────────
+add_executable(core_app
+        src/main_core.cpp
+        ${APP_SOURCES}
 )
 
-target_include_directories(cg_prueba PRIVATE
+target_include_directories(core_app PRIVATE
         external/glad/include
         include
 )
 
-find_package(glfw3 REQUIRED)
-
-target_link_libraries(cg_prueba PRIVATE
-        glfw
+target_link_libraries(core_app PRIVATE
+        glfw3
         opengl32
         gdi32
 )
 
+#legacy
+add_executable(legacy_app
+        src/main_legacy.cpp
+        ${APP_SOURCES}
+)
+
+target_include_directories(legacy_app PRIVATE
+        external/glad/include
+        include
+)
+
+target_link_libraries(legacy_app PRIVATE
+        glfw3
+        opengl32
+        gdi32
+)
+#dual
+add_executable(dual_app
+        src/main_dual.cpp
+        ${APP_SOURCES}
+)
+
+target_include_directories(dual_app PRIVATE
+        external/glad/include
+        include
+)
+
+target_link_libraries(dual_app PRIVATE
+        glfw3
+        opengl32
+        gdi32
+)
 # ── Tests ─────────────────────────────────────────────────────────────
 enable_testing()
 find_package(GTest REQUIRED)

@@ -9,12 +9,16 @@
 #include <vector>
 #include <ostream>
 #include "Punto.h"
+class Shader;
 
 class Poligono;
 std::ostream& operator<<(std::ostream& os, const Poligono& punto);
 
 class Poligono {
     protected:
+        mutable unsigned int VAO = 0;
+        mutable unsigned int VBO = 0;
+        mutable bool gpuListo = false;
         std::vector<Punto> vertices;
         [[nodiscard]] static float distancia(const Punto& a, const Punto& b);
     public:
@@ -23,6 +27,7 @@ class Poligono {
         [[nodiscard]] virtual float area() const = 0;
         [[nodiscard]] virtual float perimetro() const = 0;
         virtual void dibujar() const = 0;          // cada figura decidira como se dibuja
+        virtual void dibujar(const Shader& shader) const;
         [[nodiscard]] virtual unsigned int numVertices() const = 0;
 
         //Cada hijo definia como se imprimira

@@ -5,30 +5,32 @@
 #include <iostream>
 #include <stdexcept>
 
-Ventana::Ventana(const std::string &titulo) : Ventana(800, 600, titulo){}
+Ventana::Ventana() : Ventana(800, 600){}
 
-Ventana::Ventana(int ancho, int alto, const std::string &titulo) : ventana(nullptr), ancho(ancho), alto(alto) {
+Ventana::Ventana(int ancho, int alto) : ventana(nullptr), ancho(ancho), alto(alto) {
     if (!glfwInit()) {
         throw std::invalid_argument("Fallo GLFW al iniciar");
     }
 
     // GLFW qué versión de OpenGL pedir al sistema operativo:
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2); //2.1 -> OpenGL legacy, soporta glBegin/glEnd, glColor3f, sin shaders obligatorios
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    //Ventana::configurarContexto();
+    //this->inicializar("dassda");
 
+}
+
+void Ventana::inicializar(const std::string & titulo) {
     this->ventana = glfwCreateWindow(ancho, alto, titulo.c_str(), nullptr, nullptr);
     if (!this->ventana) {
         glfwTerminate();
-            throw std::invalid_argument("No se pudo crear la ventana");
+        throw std::invalid_argument("Fallo GLFW al iniciar ventana");
     }
 
-    glfwMakeContextCurrent(this->ventana);
+    glfwMakeContextCurrent(ventana);
     glfwSetFramebufferSizeCallback(this->ventana, frameBufferSizeCallback);
 
-    //reinterpret_cast GLFWglproc y GLADloadproc son dos tipos de punteros a función DIFERENTES con firmas distintas
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
         glfwTerminate();
-        throw std::invalid_argument("No se pudo iniciar GLAD");
+        throw std::runtime_error("Fallo glad al iniciar ventana");
     }
 }
 
@@ -40,17 +42,13 @@ bool Ventana::debeCerrar() const {
     return glfwWindowShouldClose(this->ventana);
 }
 
-void Ventana::limpiar(float r, float g, float b) {
-    glClearColor(r, g, b, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
 void Ventana::actualizar() const {
     glfwSwapBuffers(this->ventana);
     glfwPollEvents();
 }
 
 void Ventana::procesarEntrada() const {
+    //glfwMakeContextCurrent(this->ventana);//Por si se  usa varias varias ventanas al mimsmo  tiempo
     if (glfwGetKey(this->ventana, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(this->ventana, true);
     }

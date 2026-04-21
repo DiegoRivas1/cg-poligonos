@@ -9,19 +9,23 @@
 #include <GLFW/glfw3.h>
 
 class Ventana {
-    private:
+    protected:
         GLFWwindow* ventana;
         int ancho, alto;
+
+        virtual void configurarContexto() = 0; //Cada hijo usara una version de Opengl
+        void inicializar(const std::string & titulo);
+    private:
         static void frameBufferSizeCallback(GLFWwindow* ventana, int ancho, int alto);
 
     public:
-        Ventana(const std::string & titulo);
-        Ventana(int ancho, int alto, const std::string& titulo);
-        ~Ventana();
+        Ventana();
+        Ventana(int ancho, int alto);
+        virtual ~Ventana();
 
         [[nodiscard]] bool debeCerrar() const;
-        static void limpiar(float r, float g, float b) ;
-        void actualizar()const;
+        virtual void limpiar(float r, float g, float b) const = 0;
+        void actualizar() const;
         void procesarEntrada() const;
 
         [[nodiscard]] GLFWwindow* getVentana() const;

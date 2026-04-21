@@ -11,6 +11,11 @@ float Poligono::distancia(const Punto &a, const Punto &b) {
     float dz = a.z - b.z;
     return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
+
+void Poligono::dibujar(const Shader &shader) const {
+
+}
+
 const std::vector<Punto>& Poligono::getVertices() const {
     return vertices;
 }
