@@ -27,3 +27,30 @@ target_link_libraries(OpenGLTest
         opengl32
         gdi32
 )
+
+### TEST
+enable_testing()
+
+find_package(GTest REQUIRED)
+
+add_executable(tests
+        test/TestTriangulo.cpp
+        src/Punto.cpp
+        src/Poligono.cpp
+        src/Triangulo.cpp
+        external/glad/src/glad.c
+)
+
+target_include_directories(tests PRIVATE
+        external/glad/include
+        include
+)
+
+target_link_libraries(tests PRIVATE
+        GTest::GTest
+        GTest::Main
+        opengl32
+        gdi32
+)
+
+add_test(NAME TrianguloTests COMMAND tests)

@@ -15,6 +15,10 @@ class Punto {
         Punto();
         Punto(float x, float y, float z);
         ~Punto();
+
+        [[nodiscard]] float getX() const;
+        [[nodiscard]] float getY() const;
+        [[nodiscard]] float getZ() const;
         friend std::ostream& operator<<(std::ostream& os, const Punto& punto);
         friend class Triangulo;
 };
