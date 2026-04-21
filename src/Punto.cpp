@@ -19,3 +19,8 @@ float Punto::getY() const {
 float Punto::getZ() const {
     return this -> z;
 }
+
+std::ostream& operator<<(std::ostream& os, const Punto& p) {
+    os << p.x << " " << p.y << " " << p.z;
+    return os;
+}

@@ -7,15 +7,14 @@
 #include "Poligono.h"
 
 class PoligonoIrregular : public Poligono {
-    protected:
-        [[nodiscard]] static float distancia(const Punto& a, const Punto& b);
     public:
         explicit PoligonoIrregular(const std::vector<Punto>& puntos);
 
         [[nodiscard]] float area() const override;
         [[nodiscard]] float perimetro() const override;
-        void  dibujar() const override;
+        void dibujar() const override;
         [[nodiscard]] unsigned int numVertices() const override;
+        void print(std::ostream &os) const override;
 
 };
 

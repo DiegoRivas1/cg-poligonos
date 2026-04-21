@@ -39,6 +39,7 @@ add_executable(tests
         test/TestTriangulo.cpp
         src/Punto.cpp
         src/Poligono.cpp
+        src/PoligonoIrregular.cpp
         src/Triangulo.cpp
         external/glad/src/glad.c
 )

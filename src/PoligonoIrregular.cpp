@@ -9,20 +9,12 @@ PoligonoIrregular::PoligonoIrregular(const std::vector<Punto> &puntos) {
     this -> vertices = puntos;
 }
 
-float PoligonoIrregular::distancia(const Punto &a, const Punto &b) {
-    float dx = b.x - a.x;
-    float dy = b.y - a.y;
-    float dz = b.z - a.z;
-
-    return std::sqrt(dx * dx + dy * dy + dz * dz);
-}
-
 float PoligonoIrregular::area() const {
     float suma = 0.0f;
     unsigned int n = this->vertices.size();
 
-    for (int i = 0; i < n; i++) {
-        int  j = (i + 1) % n;
+    for (unsigned int i = 0; i < n; i++) {
+        unsigned int j = (i + 1) % n;
         suma += vertices[i].x * vertices[j].y - vertices[j].x * vertices[i].y;
     }
     return std::abs(suma) / 2.0f;
@@ -30,9 +22,9 @@ float PoligonoIrregular::area() const {
 
 float PoligonoIrregular::perimetro() const {
     float total = 0.0f;
-    int n = this->vertices.size();
-    for (int i = 0; i < n; i++) {
-        int j = (i + 1) % n;
+    unsigned int n = this->vertices.size();
+    for (unsigned int i = 0; i < n; i++) {
+        unsigned int j = (i + 1) % n;
         total += distancia(vertices[i], vertices[j]);
     }
     return total;
@@ -49,3 +41,16 @@ void PoligonoIrregular::dibujar() const {
     }
     glEnd();
 }
+
+void PoligonoIrregular::print(std::ostream &os) const {
+    os << "PoligonIrregular[vectices=" << this->numVertices()
+       << ", area=" << this->area()
+       << ", perimetro=" << this->perimetro() << "]\n";
+
+    for (const auto &v : vertices) {
+        os << v;
+    }
+}
+
+
+
