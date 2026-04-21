@@ -21,6 +21,8 @@ class Punto {
         [[nodiscard]] float getZ() const;
         friend std::ostream& operator<<(std::ostream& os, const Punto& punto);
         friend class Triangulo;
+        friend class PoligonoIrregular;
+        friend class Poligono;
 };
 
 #endif //CG_PRUEBA_PUNTO_H

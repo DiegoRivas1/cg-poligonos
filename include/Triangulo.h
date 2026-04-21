@@ -4,18 +4,11 @@
 
 #ifndef CG_PRUEBA_TRIANGULO_H
 #define CG_PRUEBA_TRIANGULO_H
-#include "Poligono.h"
+#include "PoligonoIrregular.h"
 
-class Triangulo:public Poligono {
-    private:
-        [[nodiscard]] static float distancia(const Punto& p1, const Punto& p2);
+class Triangulo:public PoligonoIrregular {
     public:
-        Triangulo(const Punto& p1, const Punto& p2, const Punto& p3);
-        [[nodiscard]] float area() const override;
-        [[nodiscard]] float perimetro() const override;
-        void dibujar() const override;
-        [[nodiscard]] unsigned int numVertices() const override;
-
+        Triangulo(const Punto& a, const Punto& b, const Punto& c);
 };
 
 #endif //CG_PRUEBA_TRIANGULO_H

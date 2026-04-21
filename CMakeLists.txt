@@ -13,6 +13,8 @@ add_executable(OpenGLTest
         src/Poligono.cpp
         include/Triangulo.h
         src/Triangulo.cpp
+        include/PoligonoIrregular.h
+        src/PoligonoIrregular.cpp
 )
 
 target_include_directories(OpenGLTest PRIVATE
