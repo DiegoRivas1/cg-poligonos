@@ -10,11 +10,10 @@ add_executable(cg_prueba
         src/Punto.cpp
         src/Poligono.cpp
         src/PoligonoIrregular.cpp
+        src/PoligonoRegular.cpp
+        src/PoligonoFactory.cpp
         src/Triangulo.cpp
         external/glad/src/glad.c
-        include/PoligonoRegular.h
-        src/PoligonoRegular.cpp
-        src/PoligonoRegular.cpp
 )
 
 target_include_directories(cg_prueba PRIVATE
@@ -34,11 +33,12 @@ target_link_libraries(cg_prueba PRIVATE
 enable_testing()
 find_package(GTest REQUIRED)
 
-# Fuentes comunes a todos los tests (sin main.cpp ni glad para OpenGL)
 set(COMMON_SOURCES
         src/Punto.cpp
         src/Poligono.cpp
         src/PoligonoIrregular.cpp
+        src/PoligonoRegular.cpp
+        src/PoligonoFactory.cpp
         src/Triangulo.cpp
         external/glad/src/glad.c
 )
@@ -67,17 +67,26 @@ target_include_directories(TestPoligono PRIVATE ${COMMON_INCLUDES})
 target_link_libraries(TestPoligono PRIVATE ${COMMON_LIBS})
 add_test(NAME TestPoligono COMMAND TestPoligono)
 
+# ── TestPoligonoIrregular ─────────────────────────────────────────────
+add_executable(TestPoligonoIrregular test/PoligonoIrregular/TestPoligonoIrregular.cpp ${COMMON_SOURCES})
+target_include_directories(TestPoligonoIrregular PRIVATE ${COMMON_INCLUDES})
+target_link_libraries(TestPoligonoIrregular PRIVATE ${COMMON_LIBS})
+add_test(NAME TestPoligonoIrregular COMMAND TestPoligonoIrregular)
+
+# ── TestPoligonoRegular ───────────────────────────────────────────────
+add_executable(TestPoligonoRegular test/PoligonoRegular/TestPoligonoRegular.cpp ${COMMON_SOURCES})
+target_include_directories(TestPoligonoRegular PRIVATE ${COMMON_INCLUDES})
+target_link_libraries(TestPoligonoRegular PRIVATE ${COMMON_LIBS})
+add_test(NAME TestPoligonoRegular COMMAND TestPoligonoRegular)
+
+# ── TestPoligonoFactory ───────────────────────────────────────────────
+add_executable(TestPoligonoFactory test/PoligonoFactory/TestPoligonoFactory.cpp ${COMMON_SOURCES})
+target_include_directories(TestPoligonoFactory PRIVATE ${COMMON_INCLUDES})
+target_link_libraries(TestPoligonoFactory PRIVATE ${COMMON_LIBS})
+add_test(NAME TestPoligonoFactory COMMAND TestPoligonoFactory)
+
 # ── TestTriangulo ─────────────────────────────────────────────────────
 add_executable(TestTriangulo test/Triangulo/TestTriangulo.cpp ${COMMON_SOURCES})
 target_include_directories(TestTriangulo PRIVATE ${COMMON_INCLUDES})
 target_link_libraries(TestTriangulo PRIVATE ${COMMON_LIBS})
 add_test(NAME TestTriangulo COMMAND TestTriangulo)
-
-# ── TestPoligonoIrregular ──────────────────────────────────────────────────────
-add_executable(TestPoligonoIrregular
-        test/PoligonoIrregular/TestPoligonoIrregular.cpp
-        ${COMMON_SOURCES}
-)
-target_include_directories(TestPoligonoIrregular PRIVATE ${COMMON_INCLUDES})
-target_link_libraries(TestPoligonoIrregular PRIVATE ${COMMON_LIBS})
-add_test(NAME TestPoligonoIrregular COMMAND TestPoligonoIrregular)
