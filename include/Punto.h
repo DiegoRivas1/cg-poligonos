@@ -26,6 +26,7 @@ class Punto {
         friend std::ostream& operator<<(std::ostream& os, const Punto& punto);
         //friend class Triangulo;
         friend class PoligonoIrregular;
+        friend class PoligonoRegular;
         friend class Poligono;
 
 };

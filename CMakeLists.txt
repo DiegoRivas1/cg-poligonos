@@ -12,6 +12,9 @@ add_executable(cg_prueba
         src/PoligonoIrregular.cpp
         src/Triangulo.cpp
         external/glad/src/glad.c
+        include/PoligonoRegular.h
+        src/PoligonoRegular.cpp
+        src/PoligonoRegular.cpp
 )
 
 target_include_directories(cg_prueba PRIVATE
@@ -74,7 +77,6 @@ add_test(NAME TestTriangulo COMMAND TestTriangulo)
 add_executable(TestPoligonoIrregular
         test/PoligonoIrregular/TestPoligonoIrregular.cpp
         ${COMMON_SOURCES}
-        test/TestPoligonoIrregular/TestPoligonoIrregular.cpp
 )
 target_include_directories(TestPoligonoIrregular PRIVATE ${COMMON_INCLUDES})
 target_link_libraries(TestPoligonoIrregular PRIVATE ${COMMON_LIBS})

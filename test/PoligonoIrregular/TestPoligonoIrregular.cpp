@@ -34,5 +34,5 @@ TEST(PoligonoIrregularTest, PentagonoNumVertices) {
 TEST(PoligonoIrregularTest, Print) {
     std::ostringstream os;
     os << cuadrado;
-    EXPECT_NE(os.str().find("4"), std::string::npos);  // menciona 4 vertices
+    EXPECT_NE(os.str().find('4'), std::string::npos);  // menciona 4 vertices
 }
