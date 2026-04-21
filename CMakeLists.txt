@@ -14,6 +14,8 @@ add_executable(cg_prueba
         src/PoligonoFactory.cpp
         src/Triangulo.cpp
         external/glad/src/glad.c
+        include/Ventana.h
+        src/Ventana.cpp
 )
 
 target_include_directories(cg_prueba PRIVATE
