@@ -16,6 +16,7 @@ class Punto {
         float z;
     public:
         Punto();
+        Punto(float x, float y);
         Punto(float x, float y, float z);
         ~Punto();
 

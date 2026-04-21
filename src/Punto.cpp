@@ -4,9 +4,11 @@
 
 #include "Punto.h"
 
-Punto::Punto() : x(0), y(0), z(0) {}
+Punto::Punto() : x(0.0f), y(0.0f), z(0.0f) {}
 
 Punto::~Punto() = default;
+
+Punto::Punto(float x, float y) : x(x), y(y), z(0.0f) {}
 
 Punto::Punto(float x, float y, float z) : x(x), y(y), z(z) {}
 
@@ -21,6 +23,9 @@ float Punto::getZ() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Punto& p) {
-    os << p.x << " " << p.y << " " << p.z;
+    if (p.z == 0.f)
+        os << "(" << p.x << ", " << p.y << ")";
+    else
+        os << "(" << p.x << ", " << p.y << ", " << p.z << ")";
     return os;
 }
