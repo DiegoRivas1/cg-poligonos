@@ -9,10 +9,10 @@ Implementa una jerarquía de polígonos con soporte para renderizado **Legacy (O
 
 | Demo                                           | Descripción |
 |------------------------------------------------|-------------|
-| ![demo_legacy](docs/demo_legacy.png)           | **Legacy** — polígonos con `glBegin/glEnd` |
-| ![demo_core](docs/demo_core.png)               | **Core** — polígonos con shaders GLSL |
-| ![demo_dual](docs/demo_dual.png)               | **Dual** — ventana legacy + core simultáneas |
-| ![demo_3d_rotacion](docs/demo_3d_rotacion.gif) | **3D Rotación** — arrastrar con mouse para rotar |
+| ![demo_legacy](docs/demo_legacy.png)           | **Legacy**  polígonos con `glBegin/glEnd` |
+| ![demo_core](docs/demo_core.png)               | **Core**  polígonos con shaders GLSL |
+| ![demo_dual](docs/demo_dual.png)               | **Dual**  ventana legacy + core simultáneas |
+| <img src="docs/demo_3d_rotacion.gif" width="300"/> | **3D Rotación** — arrastrar con mouse para rotar |
 
 ---
 
@@ -20,12 +20,12 @@ Implementa una jerarquía de polígonos con soporte para renderizado **Legacy (O
 
 ### Jerarquía de Polígonos
 
-```
+```cmd
 Poligono  (abstracta)
-├── PoligonoRegular      → area = perimetro * apotema / 2
+├── PoligonoRegular      -> area = perimetro * apotema / 2
 │                          perimetro = n * lado
-└── PoligonoIrregular    → area por Shoelace
-    └── Triangulo        → garantiza exactamente 3 vértices
+└── PoligonoIrregular    -> area por Shoelace
+    └── Triangulo        -> garantiza exactamente 3 vértices
 
 PoligonoFactory::crear(vector<Punto>)
     → detecta automáticamente Regular o Irregular
@@ -36,8 +36,8 @@ PoligonoFactory::crear(vector<Punto>)
 
 ```
 Ventana  (abstracta — GLFW, input, swap buffers)
-├── VentanaLegacy  → contexto OpenGL 2.1, glBegin/glEnd
-└── VentanaCore    → contexto OpenGL 4.6, shaders, VAO, VBO
+├── VentanaLegacy  -> contexto OpenGL 2.1, glBegin/glEnd
+└── VentanaCore    -> contexto OpenGL 4.6, shaders, VAO, VBO
 ```
 
 ### Otras clases
@@ -133,7 +133,7 @@ ctest --extra-verbose
 
 ### Crear polígonos con la Factory
 
-```cpp
+```c++
 // La factory detecta automáticamente si es regular o irregular
 auto triangulo = PoligonoFactory::crear({
     Punto( 0.0f,  0.5f, 0.0f),
@@ -151,7 +151,7 @@ auto cuadrado = PoligonoFactory::crear({
 
 ### Transformaciones
 
-```cpp
+```c++
 poligono->setPosicion(0.5f, 0.f, 0.f);
 poligono->setRotacion(45.f, 0.f, 0.f);  // X, Y, Z en grados
 poligono->setEscala(0.5f, 0.5f, 1.f);
@@ -159,7 +159,7 @@ poligono->setEscala(0.5f, 0.5f, 1.f);
 
 ### Rotación interactiva con mouse
 
-```cpp
+```c++
 Camara camara(800.f, 600.f);
 camara.agregarPoligono(poligono.get());
 
@@ -183,4 +183,4 @@ Para poliedros (cubos, esferas, pirámides) se necesitaría extender con:
 
 ## Autor
 
-Diego — 2026
+Diego Rivas
