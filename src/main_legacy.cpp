@@ -31,6 +31,6 @@ int main() {
         return -1;
     }
 
-    glfwTerminate();
+    //glfwTerminate();
     return 0;
 }

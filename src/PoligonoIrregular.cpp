@@ -69,10 +69,9 @@ void PoligonoIrregular::dibujar(const Shader &shader) const {
 
     shader.usar();
     shader.setColor(0.2f, 0.8f, 0.4f);//// verde por defecto, luego lo parametrizamos
+    shader.setMatrix("model", getModel());
 
-    GLenum err = glGetError();
-
-
+    //GLenum err = glGetError();
     glBindVertexArray(this->VAO);
     glDrawArrays(GL_TRIANGLE_FAN, 0, static_cast<int>(this->vertices.size()));
     glBindVertexArray(0);

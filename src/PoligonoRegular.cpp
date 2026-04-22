@@ -46,6 +46,7 @@ void PoligonoRegular::dibujar(const Shader &shader) const {
 
     shader.usar();
     shader.setColor(0.8f, 0.2f, 0.2f); // rojo por ejemplo
+    shader.setMatrix("model", getModel());
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());

@@ -8,6 +8,8 @@
 #pragma once
 #include <vector>
 #include <ostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "Punto.h"
 class Shader;
 
@@ -20,9 +22,21 @@ class Poligono {
         mutable unsigned int VBO = 0;
         mutable bool gpuListo = false;
         std::vector<Punto> vertices;
+
+        //tranfromaciones
+        glm::vec3 posicion = glm::vec3(0.f);
+        glm::vec3 escala = glm::vec3(1.f);
+        float rotacion = 0.f; //los rgados en z
+
         [[nodiscard]] static float distancia(const Punto& a, const Punto& b);
     public:
         virtual ~Poligono() = default;
+
+        //transformacions
+        void setPosicion(float x, float y, float z = 0.f);
+        void setEscala(float x, float y, float z = 1.f);
+        void setRotacion(float grados);
+        [[nodiscard]] glm::mat4 getModel() const;
 
         [[nodiscard]] virtual float area() const = 0;
         [[nodiscard]] virtual float perimetro() const = 0;

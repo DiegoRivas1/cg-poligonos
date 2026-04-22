@@ -2,6 +2,7 @@
 // Created by DIEGO on 21/04/2026.
 //
 #include "Shader.h"
+#include <glm/gtc/type_ptr.hpp>
 #include <stdexcept>
 #include <iostream>
 
@@ -39,6 +40,11 @@ void Shader::usar() const {
 void Shader::setColor(float r, float g, float b, float a) const {
     int loc = glGetUniformLocation(id, "uColor");
     glUniform4f(loc, r, g, b, a);
+}
+
+void Shader::setMatrix(const std::string &nombre, const glm::mat4 &mat) const {
+    int loc = glGetUniformLocation(this->id, nombre.c_str());
+    glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
 }
 
 unsigned int Shader::compilar(unsigned int tipo, const char* src) {

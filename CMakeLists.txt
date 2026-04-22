@@ -2,14 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 project(cg_prueba)
 
 #
-find_package(glm REQUIRED)
-
-target_link_libraries(cg_prueba PRIVATE
-        glfw
-        opengl32
-        gdi32
-        glm::glm
-)
 #
 set(CMAKE_CXX_STANDARD 20)
 include_directories(include)
@@ -24,8 +16,28 @@ set(APP_SOURCES
         src/VentanaLegacy.cpp
         src/VentanaCore.cpp
         src/Shader.cpp
+        src/Camara.cpp
         external/glad/src/glad.c
 )
+#Ejeutable 3d shader
+find_package(glm REQUIRED)
+add_executable(cg_prueba
+        src/main.cpp
+        ${APP_SOURCES}
+        include/Camara.h
+        src/Camara.cpp
+)
+target_include_directories(cg_prueba PRIVATE
+        external/glad/include
+        include
+)
+target_link_libraries(cg_prueba PRIVATE
+        glfw3
+        opengl32
+        gdi32
+        glm::glm
+)
+
 # ── Ejecutable principal ──────────────────────────────────────────────
 add_executable(core_app
         src/main_core.cpp
