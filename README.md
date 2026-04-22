@@ -7,12 +7,12 @@ Implementa una jerarquía de polígonos con soporte para renderizado **Legacy (O
 
 ## Demos
 
-| Demo                                           | Descripción |
-|------------------------------------------------|-------------|
-| ![demo_legacy](docs/demo_legacy.png)           | **Legacy**  polígonos con `glBegin/glEnd` |
-| ![demo_core](docs/demo_core.png)               | **Core**  polígonos con shaders GLSL |
-| ![demo_dual](docs/demo_dual.png)               | **Dual**  ventana legacy + core simultáneas |
-| <img src="docs/demo_3d_rotacion.gif" width="300"/> | **3D Rotación**  arrastrar con mouse para rotar |
+| Demo                                  | Descripción |
+|---------------------------------------|-------------|
+| ![demo_legacy](docs/demo_legacy.png)  | **Legacy**  polígonos con `glBegin/glEnd` |
+| ![demo_core](docs/demo_core.png)      | **Core**  polígonos con shaders GLSL |
+| ![demo_dual](docs/demo_dual.png)      | **Dual**  ventana legacy + core simultáneas |
+| ![demo_3D](docs/demo_3D_rotacion.gif) | **3D Rotación**  arrastrar con mouse para rotar |
 
 ---
 
