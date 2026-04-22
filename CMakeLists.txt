@@ -87,6 +87,23 @@ target_link_libraries(dual_app PRIVATE
         opengl32
         gdi32
 )
+#helpers
+add_executable(helpers_app
+        src/main_helpers.cpp
+        ${APP_SOURCES}
+        src/main_helpers.cpp
+)
+target_include_directories(helpers_app PRIVATE
+        external/glad/include
+        include
+)
+target_link_libraries(helpers_app PRIVATE
+        glfw3
+        opengl32
+        gdi32
+        glm::glm
+)
+
 # ── Tests ─────────────────────────────────────────────────────────────
 enable_testing()
 find_package(GTest REQUIRED)

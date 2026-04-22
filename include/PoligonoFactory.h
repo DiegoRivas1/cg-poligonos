@@ -17,6 +17,16 @@ class PoligonoFactory {
         //Devolvera PoligonoRegular o PoligonoIrregular de acuerdo a neusytors vertices
         // El caller es responsable de liberar la memoria (o usar smart pointer)
         [[nodiscard]] static std::unique_ptr<Poligono> crear(const std::vector<Punto>& puntos);
+
+        // helpers para formas comunes
+        [[nodiscard]] static std::unique_ptr<Poligono> crearTriangulo(
+            const Punto& a, const Punto& b, const Punto& c);
+
+        [[nodiscard]] static std::unique_ptr<Poligono> crearCuadrado(
+            float cx, float cy, float lado);
+
+        [[nodiscard]] static std::unique_ptr<Poligono> crearPoligonoRegular(
+            int lados, float cx, float cy, float radio);
 };
 
 #endif //CG_PRUEBA_POLIGONOFACTORY_H

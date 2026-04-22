@@ -34,3 +34,37 @@ std::unique_ptr<Poligono> PoligonoFactory::crear(const std::vector<Punto>& punto
         return std::make_unique<PoligonoIrregular>(puntos);
 
 }
+
+std::unique_ptr<Poligono> PoligonoFactory::crearTriangulo(
+    const Punto& a, const Punto& b, const Punto& c) {
+    return crear({a, b, c});
+}
+
+std::unique_ptr<Poligono> PoligonoFactory::crearCuadrado(
+    float cx, float cy, float lado) {
+    float h = lado / 2.f;
+    return crear({
+        Punto(cx - h, cy + h, 0.f),
+        Punto(cx + h, cy + h, 0.f),
+        Punto(cx + h, cy - h, 0.f),
+        Punto(cx - h, cy - h, 0.f)
+    });
+}
+
+// genera N vertices en circulo de radio r centrado en (cx, cy)
+std::unique_ptr<Poligono> PoligonoFactory::crearPoligonoRegular(
+    int lados, float cx, float cy, float radio) {
+    if (lados < 3)
+        throw std::invalid_argument("Un poligono necesita al menos 3 lados");
+
+    std::vector<Punto> pts;
+    for (int i = 0; i < lados; i++) {
+        float angulo = 2.f * M_PI * i / lados - M_PI / 2.f;
+        pts.emplace_back(
+            cx + radio * std::cos(angulo),
+            cy + radio * std::sin(angulo),
+            0.f
+        );
+    }
+    return crear(pts);
+}
