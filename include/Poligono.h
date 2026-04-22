@@ -26,7 +26,7 @@ class Poligono {
         //tranfromaciones
         glm::vec3 posicion = glm::vec3(0.f);
         glm::vec3 escala = glm::vec3(1.f);
-        float rotacion = 0.f; //los rgados en z
+        glm::vec3 rotacion = glm::vec3(0.f); // angulos en x , y ,z
 
         [[nodiscard]] static float distancia(const Punto& a, const Punto& b);
     public:
@@ -35,7 +35,8 @@ class Poligono {
         //transformacions
         void setPosicion(float x, float y, float z = 0.f);
         void setEscala(float x, float y, float z = 1.f);
-        void setRotacion(float grados);
+        void setRotacion(float x, float y, float z);
+        void addRotacion(float x, float y, float z); // suma a la rotacon actual
         [[nodiscard]] glm::mat4 getModel() const;
 
         [[nodiscard]] virtual float area() const = 0;
@@ -50,6 +51,8 @@ class Poligono {
 
         //
         friend std::ostream& operator<<(std::ostream& os, const Poligono& p);
+        [[nodiscard]] glm::vec3 getRotacion() const ;
+        [[nodiscard]] bool contienePunto(float px, float py, int anchoVentana, int altoVentana) const;
 };
 
 #endif //CG_PRUEBA_POLIGONO_H
