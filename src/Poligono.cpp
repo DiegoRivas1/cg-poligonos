@@ -53,7 +53,7 @@ std::ostream& operator<<(std::ostream& os, const Poligono& p) {
 glm::vec3 Poligono::getRotacion() const { return rotacion; }
 // convierte coordenadas de pantalla a NDC (-1 a 1)
 bool Poligono::contienePunto(float px, float py, int anchoVentana, int altoVentana) const {
-    // pantalla → NDC
+    // pantalla -> NDC
     float nx =  (2.f * px / anchoVentana)  - 1.f;
     float ny = -(2.f * py / altoVentana) + 1.f;  // Y invertido
 
